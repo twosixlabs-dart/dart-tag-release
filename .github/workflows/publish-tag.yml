@@ -15,3 +15,9 @@ jobs:
         uses: ./.github/actions/tag-release
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+  test-tag:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+        - run: echo "Executed on Tag"
