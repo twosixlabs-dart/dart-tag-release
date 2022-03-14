@@ -25,7 +25,7 @@ else
   echo "version in ThisBuild := \"$releaseVersion\"" > version.sbt
 fi
 
-git remote set-url origin https://GITHUB_USER_TOKEN@github.com/$GITHUB_REPOSITORY
+git remote set-url origin https://x-access-token:$GITHUB_USER_TOKEN@github.com/$GITHUB_REPOSITORY
 
 echo `git remote -v`
 
