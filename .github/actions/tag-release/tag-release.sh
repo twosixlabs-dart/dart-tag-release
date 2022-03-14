@@ -27,6 +27,8 @@ fi
 
 git remote set-url origin https://x-access-token:GITHUB_USER_TOKEN@github.com/$GITHUB_REPOSITORY
 
+echo `git remote -v`
+
 echo "Tagging Release Version: $releaseVersion"
 
 git checkout -b "release-$releaseVersion"
