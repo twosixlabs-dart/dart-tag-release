@@ -1,0 +1,17 @@
+name: Publish Tag
+
+on: push
+
+jobs:
+  tag-release:
+    if: github.ref == 'refs/heads/DART-1314-adding-github-actions'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.0
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          persist-credentials: false
+      - name: Tag a release
+        uses: ./.github/actions/tag-release
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
