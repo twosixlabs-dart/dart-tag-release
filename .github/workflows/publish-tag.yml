@@ -12,7 +12,7 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           persist-credentials: false
       - name: Tag a release
-        uses: .
+        uses: Dockerfile
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
