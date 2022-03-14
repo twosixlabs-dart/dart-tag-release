@@ -3,8 +3,8 @@ description: Push a Git tag.
 author: Two Six Tech DART Team
 inputs:
   token:
-    required: true
     description: Github Token for pushing to the repository
+    default: "${{ github.token }}"
 runs:
   using: docker
   image: Dockerfile
