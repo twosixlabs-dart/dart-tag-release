@@ -3,21 +3,8 @@ name: Publish Tag
 on: push
 
 jobs:
-  tag-release:
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3.0.0
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          persist-credentials: false
-      - name: Tag a release
-        uses: ./
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
   test-tag-release-sbt:
-    if: github.ref == 'refs/heads/DART-1314-adding-github-actions'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.0.0
@@ -31,7 +18,6 @@ jobs:
           audit: "yes"
 
   test-tag-release-app:
-    if: github.ref == 'refs/heads/DART-1314-adding-github-actions'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.0.0
@@ -43,7 +29,23 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           audit: "yes"
-          release_version: 2.0.
+          release_version: ${{ format('2.0.{0}', github.run_number) }}
+
+  tag-release:
+    if: github.ref == 'refs/heads/master'
+    needs:
+      - test-tag-release-app
+      - test-tag-release-sbt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.0
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          persist-credentials: false
+      - name: Tag a release
+        uses: ./
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
   test-tag:
     if: startsWith(github.ref, 'refs/tags/v')
