@@ -32,7 +32,7 @@ jobs:
           release_version: ${{ format('2.0.{0}', github.run_number) }}
 
   tag-release:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs:
       - test-tag-release-app
       - test-tag-release-sbt
