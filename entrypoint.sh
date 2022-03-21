@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 GITHUB_USER_TOKEN=$1
 RELEASE_VERSION=$2
@@ -39,7 +40,7 @@ git commit -m "[CI/CD] Release v$releaseVersion"
 git tag "v$releaseVersion"
 
 if [[ $AUDIT == "yes" ]]; then
-  echo "Successfully tagged v$releaseVersion"
+  echo "Successfully audited tagging for v$releaseVersion"
 else
   git push origin "v$releaseVersion"
 fi
