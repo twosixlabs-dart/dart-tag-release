@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 GITHUB_USER_TOKEN=$1
+RELEASE_VERSION=$2
+AUDIT=$3
 
-if [[ -z GITHUB_USER_TOKEN ]]; then
+if [[ -z $GITHUB_USER_TOKEN ]]; then
   echo "Missing GITHUB_USER_TOKEN"
   exit 1
 fi
@@ -35,4 +37,9 @@ git add .
 git commit -m "[CI/CD] Release v$releaseVersion"
 
 git tag "v$releaseVersion"
-git push origin "v$releaseVersion"
+
+if [[ $AUDIT == "yes" ]]; then
+  echo "Successfully tagged v$releaseVersion"
+else
+  git push origin "v$releaseVersion"
+fi

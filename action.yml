@@ -5,11 +5,21 @@ inputs:
   token:
     description: Github Token for pushing to the repository
     default: "${{ github.token }}"
+  release_version:
+    description: Release major version
+    required: false
+    default: ""
+  audit:
+    description: Audit action
+    required: false
+    default: ""
 runs:
   using: docker
   image: Dockerfile
   args:
     - ${{ inputs.token }}
+    - ${{ input.release_version }}
+    - ${{ input.audit }}
 branding:
   icon: search
   color: yellow
