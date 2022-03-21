@@ -43,7 +43,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           audit: "yes"
-          release_version: "2.0.${{ env.GITHUB_RUN_NUMBER }}"
+          release_version: ${{ format('2.0.{0}', env.GITHUB_RUN_NUMBER) }}
 
   test-tag:
     if: startsWith(github.ref, 'refs/tags/v')
