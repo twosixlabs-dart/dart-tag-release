@@ -1,0 +1,25 @@
+name: Tag a DART version
+description: Push a Git tag.
+author: Two Six Tech DART Team
+inputs:
+  token:
+    description: Github Token for pushing to the repository
+    default: "${{ github.token }}"
+  release_version:
+    description: Release major version
+    required: false
+    default: ""
+  audit:
+    description: Audit action
+    required: false
+    default: ""
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.release_version }}
+    - ${{ inputs.audit }}
+branding:
+  icon: search
+  color: yellow

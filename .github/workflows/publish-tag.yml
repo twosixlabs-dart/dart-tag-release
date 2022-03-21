@@ -1,0 +1,54 @@
+name: Publish Tag
+
+on: push
+
+jobs:
+
+  test-tag-release-sbt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.0
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          persist-credentials: false
+      - name: Tag a release
+        uses: ./
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          audit: "yes"
+
+  test-tag-release-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.0
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          persist-credentials: false
+      - name: Tag a release
+        uses: ./
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          audit: "yes"
+          release_version: ${{ format('2.0.{0}', github.run_number) }}
+
+  tag-release:
+    if: github.ref == 'refs/heads/master'
+    needs:
+      - test-tag-release-app
+      - test-tag-release-sbt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.0
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          persist-credentials: false
+      - name: Tag a release
+        uses: ./
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+  test-tag:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+        - run: echo "Executed on Tag"
