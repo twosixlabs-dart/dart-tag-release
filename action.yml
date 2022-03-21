@@ -18,8 +18,8 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.token }}
-    - ${{ input.release_version }}
-    - ${{ input.audit }}
+    - ${{ inputs.release_version }}
+    - ${{ inputs.audit }}
 branding:
   icon: search
   color: yellow
