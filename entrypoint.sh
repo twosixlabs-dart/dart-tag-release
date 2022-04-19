@@ -17,6 +17,7 @@ fi
 
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+git config --global safe.directory /github/workspace
 
 if [[ -n $RELEASE_VERSION ]]; then
   releaseVersion=$RELEASE_VERSION
